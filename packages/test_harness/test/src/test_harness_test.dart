@@ -1,14 +1,22 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'dart:async';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:test_harness/test_harness.dart';
 
 void main() {
   group('TestHarness', () {
-    test('test harness can setup values', harness((given, when, then) async {
-      then
-        ..setupValueIsTrue()
-        ..timesSetupRan(1);
+    test(
+      'test harness can setup values',
+      harness((given, when, then) async {
+        then
+          ..setupValueIsTrue()
+          ..timesSetupRan(1);
+      }),
+    );
+    test('zone has values', harness((given, when, then) async {
+      then.zoneHasValues();
     }));
   });
 }
@@ -16,6 +24,13 @@ void main() {
 class Harness extends TestHarness with SetupValue1, SetupValue2 {}
 
 mixin SetupValue1 on TestHarness {
+  @override
+  void zoneSetup(List<ZoneSetup> zones) {
+    print('zone1');
+    zones.add(ZoneSetup(zoneValues: {#setupValue1Key: 100}));
+    super.zoneSetup(zones);
+  }
+
   @override
   Future<void> setup() {
     timesSetupRan++;
@@ -25,6 +40,13 @@ mixin SetupValue1 on TestHarness {
   int timesSetupRan = 0;
 }
 mixin SetupValue2 on TestHarness {
+  void zoneSetup(List<ZoneSetup> zones) {
+    print('zone2');
+
+    zones.add(ZoneSetup(zoneValues: {#setupValue2Key: 100}));
+    super.zoneSetup(zones);
+  }
+
   @override
   Future<void> setup() {
     ranSetup = true;
@@ -35,6 +57,13 @@ mixin SetupValue2 on TestHarness {
 }
 
 final harness = setupHarness(Harness.new);
+
+extension on Then<Harness> {
+  void zoneHasValues() {
+    expect(Zone.current[#setupValue1Key], 100);
+    expect(Zone.current[#setupValue2Key], 100);
+  }
+}
 
 extension on Then<SetupValue2> {
   void setupValueIsTrue() {
