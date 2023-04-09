@@ -21,12 +21,11 @@ void main() {
   });
 }
 
-class Harness extends TestHarness with SetupValue1, SetupValue2 {}
+class Harness extends UnitTestHarness with SetupValue1, SetupValue2 {}
 
 mixin SetupValue1 on TestHarness {
   @override
   void zoneSetup(List<ZoneSetup> zones) {
-    print('zone1');
     zones.add(ZoneSetup(zoneValues: {#setupValue1Key: 100}));
     super.zoneSetup(zones);
   }
@@ -40,9 +39,8 @@ mixin SetupValue1 on TestHarness {
   int timesSetupRan = 0;
 }
 mixin SetupValue2 on TestHarness {
+  @override
   void zoneSetup(List<ZoneSetup> zones) {
-    print('zone2');
-
     zones.add(ZoneSetup(zoneValues: {#setupValue2Key: 100}));
     super.zoneSetup(zones);
   }
@@ -56,7 +54,7 @@ mixin SetupValue2 on TestHarness {
   bool ranSetup = false;
 }
 
-final harness = setupHarness(Harness.new);
+final harness = UnitTestSetup.setupHarness(Harness.new);
 
 extension on Then<Harness> {
   void zoneHasValues() {
