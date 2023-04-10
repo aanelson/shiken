@@ -29,9 +29,4 @@ jobs:
           melos bootstrap
       - name: "run tests"
         run: |
-          melos run coverage
-      - name: "update coverage"
-        uses: codecov/codecov-action@v3
-        with:
-          fail_ci_if_error: true
-          files: packages/*/coverage/lcov.info
+          melos run test
