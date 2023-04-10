@@ -53,8 +53,7 @@ mixin SetupValue2 on TestHarness {
 
   bool ranSetup = false;
 }
-
-final harness = UnitTestSetup.setupHarness(Harness.new);
+final harness = UnitTestHarnessSetup.setupHarness(Harness.new);
 
 extension on Then<Harness> {
   void zoneHasValues() {

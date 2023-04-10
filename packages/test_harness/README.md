@@ -13,7 +13,7 @@ Helps setup a test harness
 Add `test_harness` to your `pubspec.yaml`:
 
 ```yaml
-dependencies:
+dev_dependencies:
   test_harness:
 ```
 

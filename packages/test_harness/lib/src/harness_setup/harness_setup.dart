@@ -3,12 +3,17 @@ import 'dart:io';
 
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_test/flutter_test.dart';
 import 'package:test_harness/test_harness.dart';
+
+///
+/// This class and the subclasses exist to simplify the creation of test harness.
+/// Primarily exists for unique types for Given,When,Then between Widget/ Unit test harness
+///
+/// [UnitTestSetup] and [WidgetTestHarness]
+///
 
 abstract class HarnessSetup<H extends TestHarness, G extends Given<H>,
     W extends When<H>, T extends Then<H>> {
-  const HarnessSetup();
   @protected
   G createGiven(H harness);
   @protected
@@ -61,61 +66,6 @@ abstract class HarnessSetup<H extends TestHarness, G extends Given<H>,
   }
 }
 
-class UnitTestSetup<H extends UnitTestHarness>
-    extends HarnessSetup<H, Given<H>, When<H>, Then<H>> {
-  static Future<void> Function() Function(
-          ClassHarnessCallback<H, Given<H>, When<H>, Then<H>> callback)
-      setupHarness<H extends UnitTestHarness>(H Function() createHarness) {
-    Future<void> Function() privateHarness(
-        ClassHarnessCallback<H, Given<H>, When<H>, Then<H>> callback) {
-      return () async {
-        final harness = createHarness();
-        final setup = UnitTestSetup<H>();
-        await setup.setupHarnessAndExcute(harness, callback);
-      };
-    }
-
-    return privateHarness;
-  }
-
-  @override
-  Given<H> createGiven(H harness) => UnitTestGiven(harness);
-
-  @override
-  Then<H> createThen(H harness) => UnitTestThen(harness);
-
-  @override
-  When<H> createWhen(H harness) => UnitTestWhen(harness);
-}
-
-class WidgetTestSetup<H extends WidgetTestHarness>
-    extends HarnessSetup<H, Given<H>, When<H>, Then<H>> {
-  static Future<void> Function(WidgetTester tester) Function(
-          ClassHarnessCallback<H, Given<H>, When<H>, Then<H>> callback)
-      setupHarness<H extends WidgetTestHarness>(
-          H Function(WidgetTester tester) createHarness) {
-    Future<void> Function(WidgetTester tester) privateHarness(
-        ClassHarnessCallback<H, Given<H>, When<H>, Then<H>> callback) {
-      return (tester) async {
-        final harness = createHarness(tester);
-        final setup = WidgetTestSetup<H>();
-        await setup.setupHarnessAndExcute(harness, callback);
-      };
-    }
-
-    return privateHarness;
-  }
-
-  @override
-  Given<H> createGiven(H harness) => WidgetGiven(harness);
-
-  @override
-  Then<H> createThen(H harness) => WidgetThen(harness);
-
-  @override
-  When<H> createWhen(H harness) => WidgetWhen(harness);
-}
-
 /// This function is used to generate a function to pass into a unit test
 /// From there you can use the [Given], [When], [Then] to compose the test case
 
@@ -124,4 +74,4 @@ class WidgetTestSetup<H extends WidgetTestHarness>
 
 typedef ClassHarnessCallback<H, G extends Given<H>, W extends When<H>,
         T extends Then<H>>
-    = Future<void> Function(Given<H>, When<H>, Then<H>);
+    = Future<void> Function(G, W, T);
