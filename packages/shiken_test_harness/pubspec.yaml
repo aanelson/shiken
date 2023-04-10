@@ -1,4 +1,4 @@
-name: test_harness
+name: shiken_test_harness
 description: Helps setup a test harness
 version: 0.1.0+1
 

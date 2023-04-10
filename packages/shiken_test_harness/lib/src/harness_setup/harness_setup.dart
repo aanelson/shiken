@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-import 'package:test_harness/test_harness.dart';
+import 'package:shiken_test_harness/test_harness.dart';
 
 ///
 /// This class and the subclasses exist to simplify the creation of test harness.
