@@ -3,6 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 import '../given_when_then.dart';
 import '../test_harness.dart';
+
 extension CommonWhenWidgetTestHelpers on WidgetWhen<WidgetTestHarness> {
   /// passthrough for [WidgetTester.pump]
   Future<void> pump(
