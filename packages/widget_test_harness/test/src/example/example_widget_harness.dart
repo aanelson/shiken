@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
-import 'package:test_harness/test_harness.dart';
+import 'package:widget_test_harness/widget_test_harness.dart';
 
 import 'counter_harness_mixin.dart';
 import 'example_model.dart';
@@ -49,7 +49,12 @@ class WidgetUnderTest extends StatelessWidget {
         },
         child: ValueListenableBuilder(
           builder: (context, value, _) {
-            return Text(value.toString());
+            return Column(
+              children: [
+                Text(value.toString()),
+                const Text('Some really long text', key: Key('long_text')),
+              ],
+            );
           },
           valueListenable: counter.count,
         ),

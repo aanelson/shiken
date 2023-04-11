@@ -1,4 +1,4 @@
-import 'package:test_harness/test_harness.dart';
+import 'package:widget_test_harness/widget_test_harness.dart';
 
 /// Used to create a Unit test harness
 ///

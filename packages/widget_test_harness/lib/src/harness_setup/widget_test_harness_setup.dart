@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:test_harness/test_harness.dart';
+import 'package:widget_test_harness/widget_test_harness.dart';
 
 /// Faciliates the creation of a [WidgetTestHarness] function for use in a widgetTest
 ///

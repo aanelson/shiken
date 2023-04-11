@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
-import 'package:test_harness/test_harness.dart';
+import 'package:widget_test_harness/widget_test_harness.dart';
 
 mixin LoginHarnessMixin on TestHarness {
   final ValueNotifier<bool> loggedIn = ValueNotifier(false);

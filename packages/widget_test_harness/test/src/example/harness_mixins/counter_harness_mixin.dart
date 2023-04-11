@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
-import 'package:test_harness/test_harness.dart';
+import 'package:widget_test_harness/widget_test_harness.dart';
 
 import '../example_model.dart';
 

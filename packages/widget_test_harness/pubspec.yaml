@@ -1,4 +1,4 @@
-name: test_harness
+name: widget_test_harness
 description: Helps setup a test harness
 repository: https://github.com/aanelson/shiken
 version: 0.1.0+1
