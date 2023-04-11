@@ -3,7 +3,7 @@
 import 'dart:async';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:shiken_test_harness/test_harness.dart';
+import 'package:widget_test_harness/widget_test_harness.dart';
 
 void main() {
   group('TestHarness', () {

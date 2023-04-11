@@ -3,13 +3,13 @@ import 'dart:io';
 
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-import 'package:shiken_test_harness/test_harness.dart';
+import 'package:widget_test_harness/widget_test_harness.dart';
 
 ///
 /// This class and the subclasses exist to simplify the creation of test harness.
 /// Primarily exists for unique types for Given,When,Then between Widget/ Unit test harness
 ///
-/// [UnitTestSetup] and [WidgetTestHarness]
+/// [UnitTestHarness] and [WidgetTestHarness]
 ///
 
 abstract class HarnessSetup<H extends TestHarness, G extends Given<H>,

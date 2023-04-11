@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:shiken_test_harness/test_harness.dart';
+import 'package:widget_test_harness/widget_test_harness.dart';
 
 /// Faciliates the creation of a [WidgetTestHarness] function for use in a widgetTest
 ///
@@ -14,12 +14,10 @@ typedef WidgetTesterReturn = Future<void> Function(WidgetTester tester);
 
 class WidgetTestHarnessSetup<H extends WidgetTestHarness>
     extends HarnessSetup<H, WidgetGiven<H>, WidgetWhen<H>, WidgetThen<H>> {
-      
   static WidgetTesterReturn Function(
       ClassHarnessCallback<H, WidgetGiven<H>, WidgetWhen<H>, WidgetThen<H>>
           callback) setupHarness<H extends WidgetTestHarness>(
       H Function(WidgetTester tester) createHarness) {
-        
     WidgetTesterReturn privateHarness(
         ClassHarnessCallback<H, WidgetGiven<H>, WidgetWhen<H>, WidgetThen<H>>
             callback) {

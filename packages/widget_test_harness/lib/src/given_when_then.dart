@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'test_harness.dart';
@@ -40,20 +39,17 @@ class UnitTestThen<T extends UnitTestHarness> extends Then<T> {
 /// Given class for writing helper methods for widget tests
 class WidgetGiven<T extends WidgetTestHarness> extends Given<T> {
   const WidgetGiven(super.harness);
-  @protected
   WidgetTester get tester => harness.tester;
 }
 
 /// When class for writing helper methods for widget tests
 class WidgetWhen<T extends WidgetTestHarness> extends When<T> {
   const WidgetWhen(super.harness);
-  @protected
   WidgetTester get tester => harness.tester;
 }
 
 /// Then class for writing helper methods for widget tests
 class WidgetThen<T extends WidgetTestHarness> extends Then<T> {
   const WidgetThen(super.harness);
-  @protected
   WidgetTester get tester => harness.tester;
 }

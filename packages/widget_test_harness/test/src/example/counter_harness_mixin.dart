@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
-import 'package:shiken_test_harness/test_harness.dart';
+import 'package:widget_test_harness/widget_test_harness.dart';
 
-import '../example_model.dart';
-
+import 'example_model.dart';
 
 mixin CounterHarnessMixin on TestHarness {
   CounterModel counter = CounterModel();
