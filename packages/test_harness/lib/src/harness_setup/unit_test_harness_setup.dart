@@ -1,7 +1,7 @@
-import 'package:shiken_test_harness/test_harness.dart';
+import 'package:test_harness/test_harness.dart';
 
 /// Used to create a Unit test harness
-/// 
+///
 ///
 
 class UnitTestHarnessSetup<H extends UnitTestHarness> extends HarnessSetup<H,

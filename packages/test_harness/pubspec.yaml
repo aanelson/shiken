@@ -1,11 +1,10 @@
-name: shiken_test_harness
+name: test_harness
 description: Helps setup a test harness
 repository: https://github.com/aanelson/shiken
 version: 0.1.0+1
 
 environment:
   sdk: ">=2.18.0 <3.0.0"
-  flutter: 3.3.0
 
 dependencies:
   collection: ^1.17.0

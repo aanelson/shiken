@@ -20,4 +20,4 @@ flutter packages get
 
 ## Usage 
 
--- todo
+-- see [example_test.dart](test/src/example/example_test.dart) for example of usage
