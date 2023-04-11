@@ -38,7 +38,7 @@ abstract class TestHarness {
 /// class to subclass for any test that does not take a [WidgetTester]
 /// use UnitTestHarnessSetup to create a harness then pass it into the body of a test
 /// ```dart
-/// 
+///
 ///  test('myTest', unitTestHarness((given,when,then) async {}))
 /// final unitTestHarness = UnitTestHarnessSetup.setupHarness(MyHarness.new);
 ///
@@ -53,7 +53,7 @@ abstract class UnitTestHarness extends TestHarness {
 /// class to subclass for any test that takes a [WidgetTester]
 /// use UnitTestHarnessSetup to create a harness then pass it into the body of a test
 /// ```dart
-/// 
+///
 ///  testWidgets('myTest', uiHarness((given,when,then) async {}))
 /// final uiHarness = WidgetTestHarnessSetup.setupHarness(MyHarness.new);
 ///
