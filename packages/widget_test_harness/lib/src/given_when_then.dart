@@ -2,14 +2,14 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'test_harness.dart';
 
-/// Base class for Given.  Use extentions on this to share code between unit and Widget tests
+/// Base class for Given.  Use extensions on this to share code between unit and Widget tests
 class Given<T> {
   const Given(this.harness);
 
   final T harness;
 }
 
-/// Base class for When.  Use extentions on this to share code between unit and Widget tests
+/// Base class for When.  Use extensions on this to share code between unit and Widget tests
 class When<T> {
   const When(this.harness);
   final T harness;

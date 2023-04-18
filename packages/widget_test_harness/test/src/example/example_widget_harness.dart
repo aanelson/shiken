@@ -1,5 +1,3 @@
-import 'dart:_http';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
@@ -16,7 +14,7 @@ class ExampleWidgetTestHarness extends WidgetTestHarness
   ExampleWidgetTestHarness(super.tester);
 
   @override
-  HttpClient get httpClient => throw UnimplementedError();
+  HttpClient get httpClient => FakeHttpClientForNetworkImage.transparent();
 }
 
 extension ExampleGiven on WidgetGiven<ExampleWidgetTestHarness> {
@@ -57,6 +55,9 @@ class WidgetUnderTest extends StatelessWidget {
             return Column(
               children: [
                 Text(value.toString()),
+                Image.network(
+                  'https://randomuser.me/api/portraits/thumb/men/75.jpg',
+                ),
                 const Text('Some really long text', key: Key('long_text')),
               ],
             );

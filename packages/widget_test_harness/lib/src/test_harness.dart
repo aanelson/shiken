@@ -3,10 +3,10 @@ import 'dart:io';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'http_client/http_client.dart';
+
 /// Used to setup zones
 /// All objects in zoneValue map are merged then passed into a single zoneValue in a single [runZoned]
-/// httpClient is passed into [HttpOverrides.runZoned] and uses that to create an http client
-/// only a single [ZoneSetup] can have a httpOverride value be nonnull
 ///
 class ZoneSetup {
   const ZoneSetup({this.zoneValues});
@@ -70,5 +70,5 @@ abstract class WidgetTestHarness extends TestHarness {
 
   /// Used to mock network calls.  Required for [Image.network] and [NetworkImage] to not throw during a test
   ///
-  HttpClient get httpClient;
+  HttpClient get httpClient => FakeHttpClientForNetworkImage.transparent();
 }
