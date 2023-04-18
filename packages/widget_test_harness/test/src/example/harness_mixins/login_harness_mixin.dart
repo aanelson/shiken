@@ -2,7 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:widget_test_harness/widget_test_harness.dart';
 
-mixin LoginHarnessMixin on TestHarness {
+mixin LoginHarnessMixin on FlutterTestHarness {
   final ValueNotifier<bool> loggedIn = ValueNotifier(false);
   @override
   Widget insertWidget(Widget child) {

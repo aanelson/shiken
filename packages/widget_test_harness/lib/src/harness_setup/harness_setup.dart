@@ -15,7 +15,7 @@ import 'package:widget_test_harness/widget_test_harness.dart';
 /// see [UnitTestHarness] and [WidgetTestHarness]
 ///
 
-abstract class HarnessSetup<H extends TestHarness, G extends Given<H>,
+abstract class HarnessSetup<H extends FlutterTestHarness, G extends Given<H>,
     W extends When<H>, T extends Then<H>> {
   @protected
   G createGiven(H harness);

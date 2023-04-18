@@ -15,7 +15,8 @@ class ExampleWidgetTestHarness extends WidgetTestHarness
   ExampleWidgetTestHarness(super.tester);
 
   @override
-  HttpClient get httpClient => FakeHttpClientForNetworkImage.transparent();
+  HttpClient get httpClient =>
+      FakeHttpClient.testFile('test/test_resources/sunflower.jpg');
 }
 
 extension ExampleGiven on WidgetGiven<ExampleWidgetTestHarness> {
@@ -37,8 +38,10 @@ extension ExampleThen on WidgetThen<ExampleWidgetTestHarness> {
     await harness.tester.pump();
     expect(find.text('2'), findsOneWidget);
   }
+
   Future<void> matchesGolden(String filename) async {
-    await screenMatchesGolden(harness.tester, filename, customPump: (tester) => tester.pump());
+    await screenMatchesGolden(harness.tester, filename,
+        customPump: (tester) => tester.pump());
   }
 }
 
@@ -61,6 +64,7 @@ class WidgetUnderTest extends StatelessWidget {
                 Text(value.toString()),
                 Image.network(
                   'https://randomuser.me/api/portraits/thumb/men/75.jpg',
+                  height: 200,
                 ),
                 const Text('Some really long text', key: Key('long_text')),
               ],

@@ -1,10 +1,17 @@
 import 'dart:async';
 import 'dart:io';
 
-class FakeHttpClientForNetworkImage implements HttpClient {
-  FakeHttpClientForNetworkImage(this.image);
-  factory FakeHttpClientForNetworkImage.transparent() =>
-      FakeHttpClientForNetworkImage((url) => _transparentImage);
+class FakeHttpClient implements HttpClient {
+  FakeHttpClient(this.image);
+  factory FakeHttpClient.transparent() =>
+      FakeHttpClient((url) => _transparentImage);
+
+  /// reads file from test folder
+  factory FakeHttpClient.testFile(String path) {
+    final file = File(path);
+    final bytes = file.readAsBytesSync();
+    return FakeHttpClient((url) => bytes);
+  }
 
   final List<int> Function(Uri url) image;
 
@@ -58,7 +65,8 @@ class FakeHttpClientResponse implements HttpClientResponse {
   @override
   StreamSubscription<List<int>> listen(void Function(List<int> event)? onData,
       {Function? onError, void Function()? onDone, bool? cancelOnError}) {
-    final stream = Stream.value(image).listen(onData, onDone: onDone, cancelOnError: cancelOnError);
+    final stream = Stream.value(image)
+        .listen(onData, onDone: onDone, cancelOnError: cancelOnError);
     return stream;
   }
 

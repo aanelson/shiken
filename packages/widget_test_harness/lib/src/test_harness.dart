@@ -20,7 +20,7 @@ class ZoneSetup {
 ///
 /// }
 /// ```
-abstract class TestHarness {
+abstract class FlutterTestHarness {
   @mustCallSuper
   void zoneSetup(List<ZoneSetup> zones) {}
 
@@ -45,7 +45,7 @@ abstract class TestHarness {
 ///
 /// }
 ///
-abstract class UnitTestHarness extends TestHarness {
+abstract class UnitTestHarness extends FlutterTestHarness {
   UnitTestHarness();
 }
 
@@ -62,14 +62,16 @@ abstract class UnitTestHarness extends TestHarness {
 /// ```
 ///
 
-abstract class WidgetTestHarness extends TestHarness {
+abstract class WidgetTestHarness extends FlutterTestHarness {
   WidgetTestHarness(this.tester);
 
   /// [WidgetTester] that is passed into harness when the test is created.
   final WidgetTester tester;
 
   /// Used to mock network calls.  Required for [Image.network] and [NetworkImage] to not throw during a test
-  /// see [FakeHttpClientForNetworkImage]
-  
-  HttpClient get httpClient => FakeHttpClientForNetworkImage.transparent();
+  /// see [FakeHttpClient] 
+  /// this is passed into [HttpOverrides] during setup and changing it in the test callback will have no effect
+  /// If a test requires different return values for a network request the [HttpClient] that is passed in has to be the owner of the state change
+
+  HttpClient get httpClient => FakeHttpClient.transparent();
 }

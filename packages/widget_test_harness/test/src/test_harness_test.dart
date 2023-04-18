@@ -23,7 +23,7 @@ void main() {
 
 class Harness extends UnitTestHarness with SetupValue1, SetupValue2 {}
 
-mixin SetupValue1 on TestHarness {
+mixin SetupValue1 on FlutterTestHarness {
   @override
   void zoneSetup(List<ZoneSetup> zones) {
     zones.add(ZoneSetup(zoneValues: {#setupValue1Key: 100}));
@@ -38,7 +38,7 @@ mixin SetupValue1 on TestHarness {
 
   int timesSetupRan = 0;
 }
-mixin SetupValue2 on TestHarness {
+mixin SetupValue2 on FlutterTestHarness {
   @override
   void zoneSetup(List<ZoneSetup> zones) {
     zones.add(ZoneSetup(zoneValues: {#setupValue2Key: 100}));
