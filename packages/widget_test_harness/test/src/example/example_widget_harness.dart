@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:golden_toolkit/golden_toolkit.dart';
 import 'package:provider/provider.dart';
 import 'package:widget_test_harness/widget_test_harness.dart';
 
@@ -35,6 +36,9 @@ extension ExampleThen on WidgetThen<ExampleWidgetTestHarness> {
   Future<void> findsWidgetText() async {
     await harness.tester.pump();
     expect(find.text('2'), findsOneWidget);
+  }
+  Future<void> matchesGolden(String filename) async {
+    await screenMatchesGolden(harness.tester, filename, customPump: (tester) => tester.pump());
   }
 }
 

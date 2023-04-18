@@ -58,7 +58,7 @@ class FakeHttpClientResponse implements HttpClientResponse {
   @override
   StreamSubscription<List<int>> listen(void Function(List<int> event)? onData,
       {Function? onError, void Function()? onDone, bool? cancelOnError}) {
-    final stream = Stream.value(image).listen(onData);
+    final stream = Stream.value(image).listen(onData, onDone: onDone, cancelOnError: cancelOnError);
     return stream;
   }
 

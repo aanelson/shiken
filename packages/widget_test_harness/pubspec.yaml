@@ -16,4 +16,6 @@ dependencies:
 
 dev_dependencies:
   flutter_lints: ^2.0.1
+  golden_toolkit: ^0.15.0
   provider: ^6.0.5
+  

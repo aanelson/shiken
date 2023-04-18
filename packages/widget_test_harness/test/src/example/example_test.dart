@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:golden_toolkit/golden_toolkit.dart';
 
 import 'counter_harness_mixin.dart';
 import 'example_unit_harness.dart';
@@ -19,6 +20,11 @@ void main() {
       await when.userPerformsSomeAction();
       await then.findsWidgetText();
       then.countEquals(2);
+    }));
+    testGoldens('looks correct', uiHarness((given, when, then) async {
+      given.countIs(1);
+      await given.setupWidget();
+      await then.matchesGolden('image');
     }));
   });
 }

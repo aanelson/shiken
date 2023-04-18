@@ -69,6 +69,7 @@ abstract class WidgetTestHarness extends TestHarness {
   final WidgetTester tester;
 
   /// Used to mock network calls.  Required for [Image.network] and [NetworkImage] to not throw during a test
-  ///
+  /// see [FakeHttpClientForNetworkImage]
+  
   HttpClient get httpClient => FakeHttpClientForNetworkImage.transparent();
 }
