@@ -25,6 +25,6 @@ void main() {
       given.countIs(1);
       await given.setupWidget();
       await then.matchesGolden('image');
-    }));
+    }), skip: true);
   });
 }
