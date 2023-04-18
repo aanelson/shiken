@@ -1,3 +1,5 @@
+import 'dart:_http';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
@@ -12,6 +14,9 @@ final uiHarness =
 class ExampleWidgetTestHarness extends WidgetTestHarness
     with CounterHarnessMixin {
   ExampleWidgetTestHarness(super.tester);
+
+  @override
+  HttpClient get httpClient => throw UnimplementedError();
 }
 
 extension ExampleGiven on WidgetGiven<ExampleWidgetTestHarness> {

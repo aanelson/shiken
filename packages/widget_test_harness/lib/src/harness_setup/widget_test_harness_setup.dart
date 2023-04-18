@@ -1,7 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:widget_test_harness/widget_test_harness.dart';
 
-/// Faciliates the creation of a [WidgetTestHarness] function for use in a widgetTest
+/// Facilitates the creation of a [WidgetTestHarness] function for use in a widgetTest
 ///
 /// ```dart
 /// class MyHarness extends UnitTestHarness {
@@ -24,7 +26,10 @@ class WidgetTestHarnessSetup<H extends WidgetTestHarness>
       return (tester) async {
         final harness = createHarness(tester);
         final setup = WidgetTestHarnessSetup<H>();
-        await setup.setupHarnessAndExcute(harness, callback);
+        await HttpOverrides.runZoned(
+          () => setup.setupHarnessAndExecute(harness, callback),
+          createHttpClient: (_) => harness.httpClient,
+        );
       };
     }
 

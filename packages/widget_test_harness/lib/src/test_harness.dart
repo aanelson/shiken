@@ -5,13 +5,12 @@ import 'package:flutter_test/flutter_test.dart';
 
 /// Used to setup zones
 /// All objects in zoneValue map are merged then passed into a single zoneValue in a single [runZoned]
-/// httpOverrides are passed into [HttpOverrides.runWithHttpOverrides]
+/// httpClient is passed into [HttpOverrides.runZoned] and uses that to create an http client
 /// only a single [ZoneSetup] can have a httpOverride value be nonnull
 ///
 class ZoneSetup {
-  const ZoneSetup({this.zoneValues, this.httpOverrides});
+  const ZoneSetup({this.zoneValues});
   final Map<Object?, Object?>? zoneValues;
-  final HttpOverrides? httpOverrides;
 }
 
 /// Base class for [UnitTestHarness] and [WidgetTestHarness]
@@ -65,5 +64,11 @@ abstract class UnitTestHarness extends TestHarness {
 
 abstract class WidgetTestHarness extends TestHarness {
   WidgetTestHarness(this.tester);
+
+  /// [WidgetTester] that is passed into harness when the test is created.
   final WidgetTester tester;
+
+  /// Used to mock network calls.  Required for [Image.network] and [NetworkImage] to not throw during a test
+  ///
+  HttpClient get httpClient;
 }
