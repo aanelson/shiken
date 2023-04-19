@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:golden_toolkit/golden_toolkit.dart';
 import 'package:provider/provider.dart';
 import 'package:widget_test_harness/widget_test_harness.dart';
 
@@ -12,6 +13,10 @@ final uiHarness =
 class ExampleWidgetTestHarness extends WidgetTestHarness
     with CounterHarnessMixin {
   ExampleWidgetTestHarness(super.tester);
+
+  @override
+  HttpClient get httpClient =>
+      FakeHttpClient.testFile('test/test_resources/sunflower.jpg');
 }
 
 extension ExampleGiven on WidgetGiven<ExampleWidgetTestHarness> {
@@ -33,6 +38,11 @@ extension ExampleThen on WidgetThen<ExampleWidgetTestHarness> {
     await harness.tester.pump();
     expect(find.text('2'), findsOneWidget);
   }
+
+  Future<void> matchesGolden(String filename) async {
+    await screenMatchesGolden(harness.tester, filename,
+        customPump: (tester) => tester.pump());
+  }
 }
 
 class WidgetUnderTest extends StatelessWidget {
@@ -52,6 +62,10 @@ class WidgetUnderTest extends StatelessWidget {
             return Column(
               children: [
                 Text(value.toString()),
+                Image.network(
+                  'https://randomuser.me/api/portraits/thumb/men/75.jpg',
+                  height: 200,
+                ),
                 const Text('Some really long text', key: Key('long_text')),
               ],
             );

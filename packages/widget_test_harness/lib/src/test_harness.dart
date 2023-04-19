@@ -3,15 +3,14 @@ import 'dart:io';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'http_client/http_client.dart';
+
 /// Used to setup zones
 /// All objects in zoneValue map are merged then passed into a single zoneValue in a single [runZoned]
-/// httpOverrides are passed into [HttpOverrides.runWithHttpOverrides]
-/// only a single [ZoneSetup] can have a httpOverride value be nonnull
 ///
 class ZoneSetup {
-  const ZoneSetup({this.zoneValues, this.httpOverrides});
+  const ZoneSetup({this.zoneValues});
   final Map<Object?, Object?>? zoneValues;
-  final HttpOverrides? httpOverrides;
 }
 
 /// Base class for [UnitTestHarness] and [WidgetTestHarness]
@@ -21,7 +20,7 @@ class ZoneSetup {
 ///
 /// }
 /// ```
-abstract class TestHarness {
+abstract class FlutterTestHarness {
   @mustCallSuper
   void zoneSetup(List<ZoneSetup> zones) {}
 
@@ -46,7 +45,7 @@ abstract class TestHarness {
 ///
 /// }
 ///
-abstract class UnitTestHarness extends TestHarness {
+abstract class UnitTestHarness extends FlutterTestHarness {
   UnitTestHarness();
 }
 
@@ -63,7 +62,16 @@ abstract class UnitTestHarness extends TestHarness {
 /// ```
 ///
 
-abstract class WidgetTestHarness extends TestHarness {
+abstract class WidgetTestHarness extends FlutterTestHarness {
   WidgetTestHarness(this.tester);
+
+  /// [WidgetTester] that is passed into harness when the test is created.
   final WidgetTester tester;
+
+  /// Used to mock network calls.  Required for [Image.network] and [NetworkImage] to not throw during a test
+  /// see [FakeHttpClient] 
+  /// this is passed into [HttpOverrides] during setup and changing it in the test callback will have no effect
+  /// If a test requires different return values for a network request the [HttpClient] that is passed in has to be the owner of the state change
+
+  HttpClient get httpClient => FakeHttpClient.transparent();
 }

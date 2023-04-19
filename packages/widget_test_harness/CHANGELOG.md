@@ -5,3 +5,8 @@
 # 0.1.0+2
 
 - updated formating and fixes for pub scoring
+
+# 0.2.0
+
+- fixed some documentation
+- Added http client in widget harness to mock NetworkImage

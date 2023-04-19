@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
@@ -9,10 +8,14 @@ import 'package:widget_test_harness/widget_test_harness.dart';
 /// This class and the subclasses exist to simplify the creation of test harness.
 /// Primarily exists for unique types for Given,When,Then between Widget/ Unit test harness
 ///
-/// [UnitTestHarness] and [WidgetTestHarness]
+/// used to create a Function with a harness.  The [Given], [When], [Then] are then created based on which harness setup is called and if the [TestHarness] is the appropriate subclass
+/// For Example, [UnitTestHarness] takes a harness that is subclassed from [UnitTestHarness] and returns [UnitTestGiven], [UnitTestWhen] and [UnitTestThen]
+/// This allows a single mixin to support both widget and unit tests but only expose the appropriate methods for the type of test.
+///
+/// see [UnitTestHarness] and [WidgetTestHarness]
 ///
 
-abstract class HarnessSetup<H extends TestHarness, G extends Given<H>,
+abstract class HarnessSetup<H extends FlutterTestHarness, G extends Given<H>,
     W extends When<H>, T extends Then<H>> {
   @protected
   G createGiven(H harness);
@@ -21,25 +24,19 @@ abstract class HarnessSetup<H extends TestHarness, G extends Given<H>,
   @protected
   T createThen(H harness);
 
-  Future<void> setupHarnessAndExcute(
+  Future<void> setupHarnessAndExecute(
       H harness, ClassHarnessCallback<H, G, W, T> callback) async {
     await harness.setup();
 
     final zones = <ZoneSetup>[];
     harness.zoneSetup(zones);
     var callbackRan = false;
-    final httpOverrides =
-        zones.map((e) => e.httpOverrides).whereNotNull().toList();
     final zoneValues = zones
         .map((e) => e.zoneValues)
         .whereNotNull()
         .fold(<Object?, Object?>{}, (previousValue, element) {
       return previousValue..addAll(element);
     });
-    assert(
-      httpOverrides.length <= 1,
-      'There should only a single httpOverride being used',
-    );
     Future<void> runGivenWhenThen() async {
       final given = createGiven(harness);
       final when = createWhen(harness);
@@ -48,28 +45,13 @@ abstract class HarnessSetup<H extends TestHarness, G extends Given<H>,
       callbackRan = true;
     }
 
-    await runZoned(
-      () {
-        if (httpOverrides.isNotEmpty) {
-          return HttpOverrides.runWithHttpOverrides(
-            runGivenWhenThen,
-            httpOverrides.single,
-          );
-        } else {
-          return runGivenWhenThen();
-        }
-      },
-      zoneValues: zoneValues,
-    );
+    await runZoned(runGivenWhenThen, zoneValues: zoneValues);
     assert(callbackRan, 'given, when, then callback was not executed');
     harness.dispose();
   }
 }
 
 /// This function is used to generate a function to pass into a unit test
-/// From there you can use the [Given], [When], [Then] to compose the test case
-
-/// This function is used to generate a function to pass into a widget test
 /// From there you can use the [Given], [When], [Then] to compose the test case
 
 typedef ClassHarnessCallback<H, G extends Given<H>, W extends When<H>,

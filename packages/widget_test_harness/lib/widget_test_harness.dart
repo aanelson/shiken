@@ -6,3 +6,5 @@ export 'src/test_harness.dart';
 export 'src/ui_harness_helpers/given.dart';
 export 'src/ui_harness_helpers/when.dart';
 export 'src/ui_harness_helpers/then.dart';
+export 'src/http_client/http_client.dart' show FakeHttpClient;
+export 'dart:io' show HttpClient;

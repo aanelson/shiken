@@ -18,7 +18,7 @@ class UnitTestHarnessSetup<H extends UnitTestHarness> extends HarnessSetup<H,
       return () async {
         final harness = createHarness();
         final setup = UnitTestHarnessSetup<H>();
-        await setup.setupHarnessAndExcute(harness, callback);
+        await setup.setupHarnessAndExecute(harness, callback);
       };
     }
 
