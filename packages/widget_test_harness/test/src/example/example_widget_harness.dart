@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
@@ -11,12 +13,15 @@ final uiHarness =
     WidgetTestHarnessSetup.setupHarness(ExampleWidgetTestHarness.new);
 
 class ExampleWidgetTestHarness extends WidgetTestHarness
-    with CounterHarnessMixin {
+    with CounterHarnessMixin  {
   ExampleWidgetTestHarness(super.tester);
 
   @override
-  HttpClient get httpClient =>
-      FakeHttpClient.testFile('test/test_resources/sunflower.jpg');
+  List<int> imageForUrl(Uri url) {
+    final file = File('test/test_resources/sunflower.jpg');
+    final bytes = file.readAsBytesSync();
+    return bytes;
+  }
 }
 
 extension ExampleGiven on WidgetGiven<ExampleWidgetTestHarness> {

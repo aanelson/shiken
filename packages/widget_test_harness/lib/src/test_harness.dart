@@ -1,17 +1,8 @@
-import 'dart:io';
+import 'dart:async';
 
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import 'http_client/http_client.dart';
-
-/// Used to setup zones
-/// All objects in zoneValue map are merged then passed into a single zoneValue in a single [runZoned]
-///
-class ZoneSetup {
-  const ZoneSetup({this.zoneValues});
-  final Map<Object?, Object?>? zoneValues;
-}
+import 'package:widget_test_harness/src/image_helpers/network_image_mixin.dart';
 
 /// Base class for [UnitTestHarness] and [WidgetTestHarness]
 /// intended for mixins to conform to build up testing feature dependencies
@@ -22,9 +13,6 @@ class ZoneSetup {
 /// ```
 abstract class FlutterTestHarness {
   @mustCallSuper
-  void zoneSetup(List<ZoneSetup> zones) {}
-
-  @mustCallSuper
   Future<void> setup() async {}
 
   @mustCallSuper
@@ -32,6 +20,11 @@ abstract class FlutterTestHarness {
 
   @mustCallSuper
   Widget insertWidget(Widget child) => child;
+
+  /// used to wrap callback with [runZoned] or other test helpers that take a function.
+  /// see [NetworkImageMixin] for example of setup.
+  @mustCallSuper
+  Future<void> setupZones(Future<void> Function() child) => child();
 }
 
 /// class to subclass for any test that does not take a [WidgetTester]
@@ -62,16 +55,15 @@ abstract class UnitTestHarness extends FlutterTestHarness {
 /// ```
 ///
 
-abstract class WidgetTestHarness extends FlutterTestHarness {
+abstract class WidgetTestHarness extends FlutterTestHarness
+    with NetworkImageMixin {
   WidgetTestHarness(this.tester);
 
   /// [WidgetTester] that is passed into harness when the test is created.
   final WidgetTester tester;
 
   /// Used to mock network calls.  Required for [Image.network] and [NetworkImage] to not throw during a test
-  /// see [FakeHttpClient] 
+  /// see [FakeHttpClient]
   /// this is passed into [HttpOverrides] during setup and changing it in the test callback will have no effect
   /// If a test requires different return values for a network request the [HttpClient] that is passed in has to be the owner of the state change
-
-  HttpClient get httpClient => FakeHttpClient.transparent();
 }

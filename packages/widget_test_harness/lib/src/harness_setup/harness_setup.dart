@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:widget_test_harness/widget_test_harness.dart';
 
@@ -28,25 +27,17 @@ abstract class HarnessSetup<H extends FlutterTestHarness, G extends Given<H>,
       H harness, ClassHarnessCallback<H, G, W, T> callback) async {
     await harness.setup();
 
-    final zones = <ZoneSetup>[];
-    harness.zoneSetup(zones);
-    var callbackRan = false;
-    final zoneValues = zones
-        .map((e) => e.zoneValues)
-        .whereNotNull()
-        .fold(<Object?, Object?>{}, (previousValue, element) {
-      return previousValue..addAll(element);
-    });
+    var callbackRan = 0;
     Future<void> runGivenWhenThen() async {
       final given = createGiven(harness);
       final when = createWhen(harness);
       final then = createThen(harness);
       await callback(given, when, then);
-      callbackRan = true;
+      callbackRan++;
     }
+    await harness.setupZones(runGivenWhenThen);
 
-    await runZoned(runGivenWhenThen, zoneValues: zoneValues);
-    assert(callbackRan, 'given, when, then callback was not executed');
+    assert(callbackRan == 1, 'given, when, then callback was not executed $callbackRan times');
     harness.dispose();
   }
 }

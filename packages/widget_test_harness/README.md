@@ -3,8 +3,6 @@ Helps setup a test harness
 
 ## Installation 💻
 
-**❗ In order to start using Test Harness you must have the [Flutter SDK][flutter_install_link] installed on your machine.**
-
 Add `test_harness` to your `pubspec.yaml`:
 
 ```yaml

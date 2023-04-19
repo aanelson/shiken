@@ -25,9 +25,11 @@ class Harness extends UnitTestHarness with SetupValue1, SetupValue2 {}
 
 mixin SetupValue1 on FlutterTestHarness {
   @override
-  void zoneSetup(List<ZoneSetup> zones) {
-    zones.add(ZoneSetup(zoneValues: {#setupValue1Key: 100}));
-    super.zoneSetup(zones);
+  Future<void> setupZones(Future<void> Function() child) {
+    return runZoned(
+      () => super.setupZones(child),
+      zoneValues: {#setupValue1Key: 100},
+    );
   }
 
   @override
@@ -39,16 +41,19 @@ mixin SetupValue1 on FlutterTestHarness {
   int timesSetupRan = 0;
 }
 mixin SetupValue2 on FlutterTestHarness {
-  @override
-  void zoneSetup(List<ZoneSetup> zones) {
-    zones.add(ZoneSetup(zoneValues: {#setupValue2Key: 100}));
-    super.zoneSetup(zones);
-  }
 
   @override
   Future<void> setup() {
     ranSetup = true;
     return super.setup();
+  }
+
+  @override
+  Future<void> setupZones(Future<void> Function() child) {
+    return runZoned(
+      () => super.setupZones(child),
+      zoneValues: {#setupValue2Key: 200},
+    );
   }
 
   bool ranSetup = false;
@@ -58,7 +63,7 @@ final harness = UnitTestHarnessSetup.setupHarness(Harness.new);
 extension on Then<Harness> {
   void zoneHasValues() {
     expect(Zone.current[#setupValue1Key], 100);
-    expect(Zone.current[#setupValue2Key], 100);
+    expect(Zone.current[#setupValue2Key], 200);
   }
 }
 
