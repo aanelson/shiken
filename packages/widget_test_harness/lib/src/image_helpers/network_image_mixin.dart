@@ -12,10 +12,19 @@ mixin NetworkImageMixin on FlutterTestHarness {
     );
   }
 
-  
-  List<int> imageForUrl(Uri url) => _transparentImage;
+  /// Used to provide a value for Http requests
+  /// intended for [Image.network] and [NetworkImage]
+  /// Can provide custom image by reading image from disk
+  /// Example: 
+  /// ```dart
+  /// List<int> imageForUrl(Uri url) {
+  ///   final file = File(path);
+  ///   return file.readAsBytesSync();
+  /// }
+  /// ```
+  List<int> bytesForUrlRequest(Uri url) => _transparentImage;
 
-  late final HttpClient _httpClient = FakeHttpClient(imageForUrl);
+  late final HttpClient _httpClient = FakeHttpClient(bytesForUrlRequest);
 }
 
 

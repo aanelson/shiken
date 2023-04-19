@@ -5,13 +5,13 @@ import 'package:widget_test_harness/widget_test_harness.dart';
 
 ///
 /// This class and the subclasses exist to simplify the creation of test harness.
-/// Primarily exists for unique types for Given,When,Then between Widget/ Unit test harness
+/// Used to generate unique types for Given,When,Then between Widget/ Unit test harness so mixins can provide targeted extensions
 ///
-/// used to create a Function with a harness.  The [Given], [When], [Then] are then created based on which harness setup is called and if the [TestHarness] is the appropriate subclass
+/// The [Given], [When], [Then] are then created based on which harness setup is called and if the [TestHarness] is the appropriate subclass
 /// For Example, [UnitTestHarness] takes a harness that is subclassed from [UnitTestHarness] and returns [UnitTestGiven], [UnitTestWhen] and [UnitTestThen]
 /// This allows a single mixin to support both widget and unit tests but only expose the appropriate methods for the type of test.
 ///
-/// see [UnitTestHarness] and [WidgetTestHarness]
+/// see [UnitTestHarness] and [WidgetTestHarness] on actual usage
 ///
 
 abstract class HarnessSetup<H extends FlutterTestHarness, G extends Given<H>,

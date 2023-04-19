@@ -17,7 +17,7 @@ class ExampleWidgetTestHarness extends WidgetTestHarness
   ExampleWidgetTestHarness(super.tester);
 
   @override
-  List<int> imageForUrl(Uri url) {
+  List<int> bytesForUrlRequest(Uri url) {
     final file = File('test/test_resources/sunflower.jpg');
     final bytes = file.readAsBytesSync();
     return bytes;

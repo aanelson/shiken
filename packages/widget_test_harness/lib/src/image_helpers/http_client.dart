@@ -4,13 +4,6 @@ import 'dart:io';
 class FakeHttpClient implements HttpClient {
   FakeHttpClient(this.image);
 
-  /// reads file from test folder
-  factory FakeHttpClient.testFile(String path) {
-    final file = File(path);
-    final bytes = file.readAsBytesSync();
-    return FakeHttpClient((url) => bytes);
-  }
-
   final List<int> Function(Uri url) image;
 
   @override

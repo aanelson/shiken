@@ -5,7 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:widget_test_harness/src/image_helpers/network_image_mixin.dart';
 
 /// Base class for [UnitTestHarness] and [WidgetTestHarness]
-/// intended for mixins to conform to build up testing feature dependencies
+/// intended for mixins to conform to build up testing feature dependencies see [NetworkImageMixin] for example
 /// ```dart
 /// mixin SomeFeature on TestHarness {
 ///
@@ -37,7 +37,7 @@ abstract class FlutterTestHarness {
 /// class MyHarness extends UnitTestHarness {
 ///
 /// }
-///
+/// ```
 abstract class UnitTestHarness extends FlutterTestHarness {
   UnitTestHarness();
 }
@@ -61,9 +61,4 @@ abstract class WidgetTestHarness extends FlutterTestHarness
 
   /// [WidgetTester] that is passed into harness when the test is created.
   final WidgetTester tester;
-
-  /// Used to mock network calls.  Required for [Image.network] and [NetworkImage] to not throw during a test
-  /// see [FakeHttpClient]
-  /// this is passed into [HttpOverrides] during setup and changing it in the test callback will have no effect
-  /// If a test requires different return values for a network request the [HttpClient] that is passed in has to be the owner of the state change
 }
