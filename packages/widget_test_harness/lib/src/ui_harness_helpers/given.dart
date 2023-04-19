@@ -5,6 +5,7 @@ import '../given_when_then.dart';
 import '../test_harness.dart';
 
 extension CommonGivenWidgetTestHelpers on WidgetGiven<WidgetTestHarness> {
+  /// passthrough for [WidgetTester.pumpWidget]
   Future<void> pumpWidget(
     Widget widget, [
     Duration? duration,

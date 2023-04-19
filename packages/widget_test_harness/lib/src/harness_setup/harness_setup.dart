@@ -1,18 +1,17 @@
 import 'dart:async';
 
-import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:widget_test_harness/widget_test_harness.dart';
 
 ///
 /// This class and the subclasses exist to simplify the creation of test harness.
-/// Primarily exists for unique types for Given,When,Then between Widget/ Unit test harness
+/// Used to generate unique types for Given,When,Then between Widget/ Unit test harness so mixins can provide targeted extensions
 ///
-/// used to create a Function with a harness.  The [Given], [When], [Then] are then created based on which harness setup is called and if the [TestHarness] is the appropriate subclass
+/// The [Given], [When], [Then] are then created based on which harness setup is called and if the [TestHarness] is the appropriate subclass
 /// For Example, [UnitTestHarness] takes a harness that is subclassed from [UnitTestHarness] and returns [UnitTestGiven], [UnitTestWhen] and [UnitTestThen]
 /// This allows a single mixin to support both widget and unit tests but only expose the appropriate methods for the type of test.
 ///
-/// see [UnitTestHarness] and [WidgetTestHarness]
+/// see [UnitTestHarness] and [WidgetTestHarness] on actual usage
 ///
 
 abstract class HarnessSetup<H extends FlutterTestHarness, G extends Given<H>,
@@ -28,25 +27,17 @@ abstract class HarnessSetup<H extends FlutterTestHarness, G extends Given<H>,
       H harness, ClassHarnessCallback<H, G, W, T> callback) async {
     await harness.setup();
 
-    final zones = <ZoneSetup>[];
-    harness.zoneSetup(zones);
-    var callbackRan = false;
-    final zoneValues = zones
-        .map((e) => e.zoneValues)
-        .whereNotNull()
-        .fold(<Object?, Object?>{}, (previousValue, element) {
-      return previousValue..addAll(element);
-    });
+    var callbackRan = 0;
     Future<void> runGivenWhenThen() async {
       final given = createGiven(harness);
       final when = createWhen(harness);
       final then = createThen(harness);
       await callback(given, when, then);
-      callbackRan = true;
+      callbackRan++;
     }
+    await harness.setupZones(runGivenWhenThen);
 
-    await runZoned(runGivenWhenThen, zoneValues: zoneValues);
-    assert(callbackRan, 'given, when, then callback was not executed');
+    assert(callbackRan == 1, 'given, when, then callback was not executed $callbackRan times');
     harness.dispose();
   }
 }

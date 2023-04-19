@@ -1,21 +1,18 @@
-import 'dart:io';
-
 import 'package:flutter_test/flutter_test.dart';
 import 'package:widget_test_harness/widget_test_harness.dart';
 
-/// Facilitates the creation of a [WidgetTestHarness] function for use in a widgetTest
+/// Facilitates the creation of a function for use in a widgetTest
 ///
 /// ```dart
-/// class MyHarness extends UnitTestHarness {
+/// class MyHarness extends WidgetTestHarness {
 ///
 /// }
-///
+/// final harness = WidgetTestHarnessSetup.setupHarness(MyHarness.new);
 /// ```
 ///
-typedef WidgetTesterReturn = Future<void> Function(WidgetTester tester);
-
 class WidgetTestHarnessSetup<H extends WidgetTestHarness>
     extends HarnessSetup<H, WidgetGiven<H>, WidgetWhen<H>, WidgetThen<H>> {
+  /// creates a function that uses a [WidgetTestHarness] and returns a callback with [WidgetGiven], [WidgetWhen] and [WidgetThen]
   static WidgetTesterReturn Function(
       ClassHarnessCallback<H, WidgetGiven<H>, WidgetWhen<H>, WidgetThen<H>>
           callback) setupHarness<H extends WidgetTestHarness>(
@@ -26,10 +23,7 @@ class WidgetTestHarnessSetup<H extends WidgetTestHarness>
       return (tester) async {
         final harness = createHarness(tester);
         final setup = WidgetTestHarnessSetup<H>();
-        await HttpOverrides.runZoned(
-          () => setup.setupHarnessAndExecute(harness, callback),
-          createHttpClient: (_) => harness.httpClient,
-        );
+        await setup.setupHarnessAndExecute(harness, callback);
       };
     }
 
@@ -45,3 +39,5 @@ class WidgetTestHarnessSetup<H extends WidgetTestHarness>
   @override
   WidgetWhen<H> createWhen(H harness) => WidgetWhen(harness);
 }
+
+typedef WidgetTesterReturn = Future<void> Function(WidgetTester tester);
