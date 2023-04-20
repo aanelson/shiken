@@ -4,7 +4,10 @@ import 'package:flutter_test/flutter_test.dart';
 import '../given_when_then.dart';
 import '../test_harness.dart';
 
-extension CommonThenWidgetTestHelpers on WidgetThen<WidgetTestHarness> {
+extension CommonThenWidgetTestHelpers on Then<WidgetTestHarness> {
+  @protected
+  WidgetTester get tester => harness.tester;
+
   void findsOneWidget(Finder finder) => expect(finder, findsOneWidget);
 
   void findsNothing(Finder finder) => expect(finder, findsNothing);

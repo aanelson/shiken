@@ -10,3 +10,13 @@
 
 - fixed some documentation
 - Added http client in widget harness to mock NetworkImage
+
+# 0.3.0
+
+- added more documentation
+- Updated how httpClient is created
+- Updated how zones are handled
+
+# 0.4.0
+
+- updated harness creation

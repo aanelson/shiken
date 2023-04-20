@@ -4,7 +4,9 @@ import 'package:flutter_test/flutter_test.dart';
 import '../given_when_then.dart';
 import '../test_harness.dart';
 
-extension CommonGivenWidgetTestHelpers on WidgetGiven<WidgetTestHarness> {
+extension CommonGivenWidgetTestHelpers on Given<WidgetTestHarness> {
+  @protected
+  WidgetTester get tester => harness.tester;
   /// passthrough for [WidgetTester.pumpWidget]
   Future<void> pumpWidget(
     Widget widget, [

@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+/// Fake that [NetworkImageMixin] uses
 class FakeHttpClient implements HttpClient {
   FakeHttpClient(this.image);
 

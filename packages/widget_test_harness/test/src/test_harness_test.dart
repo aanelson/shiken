@@ -58,7 +58,7 @@ mixin SetupValue2 on FlutterTestHarness {
 
   bool ranSetup = false;
 }
-final harness = UnitTestHarnessSetup.setupHarness(Harness.new);
+final harness = HarnessSetup.setupHarness(Harness.new);
 
 extension on Then<Harness> {
   void zoneHasValues() {
