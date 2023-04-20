@@ -16,3 +16,7 @@
 - added more documentation
 - Updated how httpClient is created
 - Updated how zones are handled
+
+# 0.4.0
+
+- updated harness creation

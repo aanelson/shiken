@@ -9,11 +9,10 @@ import 'package:widget_test_harness/widget_test_harness.dart';
 import 'counter_harness_mixin.dart';
 import 'example_model.dart';
 
-final uiHarness =
-    WidgetTestHarnessSetup.setupHarness(ExampleWidgetTestHarness.new);
+final uiHarness = HarnessSetup.setupWidgetHarness(ExampleWidgetTestHarness.new);
 
 class ExampleWidgetTestHarness extends WidgetTestHarness
-    with CounterHarnessMixin  {
+    with CounterHarnessMixin {
   ExampleWidgetTestHarness(super.tester);
 
   @override
@@ -24,21 +23,20 @@ class ExampleWidgetTestHarness extends WidgetTestHarness
   }
 }
 
-extension ExampleGiven on WidgetGiven<ExampleWidgetTestHarness> {
+extension ExampleGiven on Given<ExampleWidgetTestHarness> {
   Future<void> setupWidget() async {
-    await harness.tester
-        .pumpWidget(harness.insertWidget(const WidgetUnderTest()));
+    await tester.pumpWidget(harness.insertWidget(const WidgetUnderTest()));
   }
 }
 
-extension ExampleWhen on WidgetWhen<ExampleWidgetTestHarness> {
+extension ExampleWhen on When<ExampleWidgetTestHarness> {
   Future<void> userPerformsSomeAction() async {
     await harness.tester.tap(find.text('1'));
     await harness.tester.pump();
   }
 }
 
-extension ExampleThen on WidgetThen<ExampleWidgetTestHarness> {
+extension ExampleThen on Then<ExampleWidgetTestHarness> {
   Future<void> findsWidgetText() async {
     await harness.tester.pump();
     expect(find.text('2'), findsOneWidget);

@@ -12,6 +12,7 @@ import 'package:widget_test_harness/src/image_helpers/network_image_mixin.dart';
 /// }
 /// ```
 abstract class FlutterTestHarness {
+
   @mustCallSuper
   Future<void> setup() async {}
 

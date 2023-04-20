@@ -1,10 +1,14 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../given_when_then.dart';
 import '../test_harness.dart';
 
-extension CommonWhenWidgetTestHelpers on WidgetWhen<WidgetTestHarness> {
+extension CommonWhenWidgetTestHelpers on When<WidgetTestHarness> {
+  @protected
+  WidgetTester get tester => harness.tester;
+
   /// passthrough for [WidgetTester.pump]
   Future<void> pump(
           [Duration? duration,
