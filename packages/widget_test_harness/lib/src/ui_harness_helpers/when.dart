@@ -38,4 +38,30 @@ extension CommonWhenWidgetTestHelpers on When<WidgetTestHarness> {
   }) =>
       tester.tap(finder,
           pointer: pointer, buttons: buttons, warnIfMissed: warnIfMissed);
+
+  /// passthrough for [WidgetTester.fling]
+  Future<void> fling(
+    Finder finder,
+    Offset offset,
+    double speed, {
+    int? pointer,
+    int buttons = kPrimaryButton,
+    Duration frameInterval = const Duration(milliseconds: 16),
+    Offset initialOffset = Offset.zero,
+    Duration initialOffsetDelay = const Duration(seconds: 1),
+    bool warnIfMissed = true,
+    PointerDeviceKind deviceKind = PointerDeviceKind.touch,
+  }) =>
+      tester.fling(
+        finder,
+        offset,
+        speed,
+        pointer: pointer,
+        buttons: buttons,
+        frameInterval: frameInterval,
+        initialOffset: initialOffset,
+        initialOffsetDelay: initialOffsetDelay,
+        warnIfMissed: warnIfMissed,
+        deviceKind: deviceKind,
+      );
 }
