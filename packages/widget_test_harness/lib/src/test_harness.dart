@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:widget_test_harness/src/image_helpers/network_image_mixin.dart';
+import 'helper_mixins.dart';
 
 /// Base class for [UnitTestHarness] and [WidgetTestHarness]
 /// intended for mixins to conform to build up testing feature dependencies see [NetworkImageMixin] for example
@@ -12,10 +12,11 @@ import 'package:widget_test_harness/src/image_helpers/network_image_mixin.dart';
 /// }
 /// ```
 abstract class FlutterTestHarness {
-
+  /// Used so mixins can setup testing infrastructure see [SemanticTesterMixin]
   @mustCallSuper
   Future<void> setup() async {}
 
+  /// Used so mixins can teardown testing infrastructure see [SemanticTesterMixin]
   @mustCallSuper
   void dispose() {}
 
@@ -29,11 +30,11 @@ abstract class FlutterTestHarness {
 }
 
 /// class to subclass for any test that does not take a [WidgetTester]
-/// use UnitTestHarnessSetup to create a harness then pass it into the body of a test
+/// use [HarnessSetup.setupHarness] to create a harness then pass it into the body of a test
 /// ```dart
 ///
 ///  test('myTest', unitTestHarness((given,when,then) async {}))
-/// final unitTestHarness = UnitTestHarnessSetup.setupHarness(MyHarness.new);
+/// final unitTestHarness = HarnessSetup.setupHarness(MyHarness.new);
 ///
 /// class MyHarness extends UnitTestHarness {
 ///
@@ -48,7 +49,7 @@ abstract class UnitTestHarness extends FlutterTestHarness {
 /// ```dart
 ///
 ///  testWidgets('myTest', uiHarness((given,when,then) async {}))
-/// final uiHarness = WidgetTestHarnessSetup.setupHarness(MyHarness.new);
+/// final uiHarness = HarnessSetup.setupWidgetHarness(MyHarness.new);
 ///
 /// class MyHarness extends WidgetTestHarness {
 ///
@@ -56,8 +57,7 @@ abstract class UnitTestHarness extends FlutterTestHarness {
 /// ```
 ///
 
-abstract class WidgetTestHarness extends FlutterTestHarness
-    with NetworkImageMixin {
+abstract class WidgetTestHarness extends FlutterTestHarness {
   WidgetTestHarness(this.tester);
 
   /// [WidgetTester] that is passed into harness when the test is created.

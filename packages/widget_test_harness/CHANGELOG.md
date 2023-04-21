@@ -25,3 +25,7 @@
 
 - fixed then functions calling themselves
 - added fling to when
+
+# 0.4.2
+- add mixins
+- updated reference to when in given
