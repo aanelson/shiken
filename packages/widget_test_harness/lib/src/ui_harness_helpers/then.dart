@@ -1,23 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_test/flutter_test.dart';
+import 'package:flutter_test/flutter_test.dart' as flutter_test;
 
 import '../given_when_then.dart';
 import '../test_harness.dart';
 
 extension CommonThenWidgetTestHelpers on Then<WidgetTestHarness> {
   @protected
-  WidgetTester get tester => harness.tester;
+  flutter_test.WidgetTester get tester => harness.tester;
 
-  void findsOneWidget(Finder finder) => expect(finder, findsOneWidget);
+  void findsOneWidget(flutter_test.Finder finder) =>
+      flutter_test.expect(finder, flutter_test.findsOneWidget);
 
-  void findsNothing(Finder finder) => expect(finder, findsNothing);
+  void findsNothing(flutter_test.Finder finder) =>
+      flutter_test.expect(finder, flutter_test.findsNothing);
 
-  void findsWidgetWithText(Finder finder, dynamic matcher) {
+  void findsWidgetWithText(flutter_test.Finder finder, dynamic matcher) {
     final widget = finder.evaluate().first.widget;
     if (widget is Text) {
-      expect(widget.data, matcher);
+      flutter_test.expect(widget.data, matcher);
     } else if (widget is RichText) {
-      expect(widget.text.toPlainText(), matcher);
+      flutter_test.expect(widget.text.toPlainText(), matcher);
     } else {
       throw UnimplementedError('could not match $widget to a text type');
     }
