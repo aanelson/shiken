@@ -20,3 +20,8 @@
 # 0.4.0
 
 - updated harness creation
+
+# 0.4.1
+
+- fixed then functions calling themselves
+- added fling to when
