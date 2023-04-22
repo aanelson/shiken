@@ -46,7 +46,7 @@ class HarnessSetup<H extends FlutterTestHarness> {
     var callbackRan = 0;
     Future<void> runGivenWhenThen() async {
       final when = When(harness);
-      await callback(Given(harness, when), when, Then(harness));
+      await callback(Given(harness), when, Then(harness));
       callbackRan++;
     }
 

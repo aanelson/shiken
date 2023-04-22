@@ -29,3 +29,6 @@
 # 0.4.2
 - add mixins
 - updated reference to when in given
+
+# 0.4.3
+- reverted change
