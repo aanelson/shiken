@@ -32,3 +32,7 @@
 
 # 0.4.3
 - reverted change
+
+# 0.4.4
+- Added parent class to given,when,then
+- widgetTester now is added via new mechanism

@@ -61,7 +61,7 @@ class HarnessSetup<H extends FlutterTestHarness> {
 /// This function is used to generate a function to pass into a unit test
 /// From there you can use the [Given], [When], [Then] to compose the test case
 
-typedef ClassHarnessCallback<H> = Future<void> Function(
-    Given<H>, When<H>, Then<H>);
+typedef ClassHarnessCallback<T extends FlutterTestHarness> = Future<void>
+    Function(Given<T>, When<T>, Then<T>);
 
 typedef WidgetTesterReturn = Future<void> Function(WidgetTester tester);

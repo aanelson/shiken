@@ -1,18 +1,21 @@
+import 'test_harness.dart';
+
+abstract class GWTBase<T extends FlutterTestHarness> {
+  const GWTBase(this.harness);
+  final T harness;
+}
 
 /// Given class
-class Given<T> {
-  const Given(this.harness);
-  final T harness;
+class Given<T extends FlutterTestHarness> extends GWTBase<T> {
+  const Given(super.harness);
 }
 
 /// When class
-class When<T> {
-  const When(this.harness);
-  final T harness;
+class When<T extends FlutterTestHarness> extends GWTBase<T> {
+  const When(super.harness);
 }
 
 /// Then class
-class Then<T> {
-  const Then(this.harness);
-  final T harness;
+class Then<T extends FlutterTestHarness> extends GWTBase<T> {
+  const Then(super.harness);
 }

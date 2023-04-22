@@ -5,9 +5,6 @@ import '../given_when_then.dart';
 import '../test_harness.dart';
 
 extension CommonThenWidgetTestHelpers on Then<WidgetTestHarness> {
-  @protected
-  flutter_test.WidgetTester get tester => harness.tester;
-
   void findsOneWidget(flutter_test.Finder finder) =>
       flutter_test.expect(finder, flutter_test.findsOneWidget);
 

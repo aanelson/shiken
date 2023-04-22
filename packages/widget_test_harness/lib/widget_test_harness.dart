@@ -5,3 +5,4 @@ export 'src/ui_harness_helpers/given.dart';
 export 'src/ui_harness_helpers/when.dart';
 export 'src/ui_harness_helpers/then.dart';
 export 'src/helper_mixins.dart';
+export 'src/ui_harness_helpers/callback_base_extensions.dart';
