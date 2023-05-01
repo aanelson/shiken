@@ -1,6 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
-import 'package:widget_test_harness/src/given_when_then.dart';
 
 import 'counter_harness_mixin.dart';
 import 'example_unit_harness.dart';

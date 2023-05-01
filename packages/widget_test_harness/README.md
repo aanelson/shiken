@@ -20,42 +20,94 @@ Install it:
 flutter packages get
 ```
 
-## Usage 
+- [Test Harness](#test-harness)
+  - [Installation 💻](#installation-)
+  - [Harness setup](#harness-setup)
+  - [Writing Mixins](#writing-mixins)
+  - [Writing Tests](#writing-tests)
 
-* [Writing tests](#writing-tests)
-* [Writing harnesses](#writing-harnesses)
-* [Writing Mixins](#writing-mixins)
 
+## Harness setup
 
-### Without given_when_then
+Harnesses are setup by subclassing an appropriate harness class [`widgetTestHarness`] and [`unitTestHarness`].
+
+[`widgetTestHarness`]: https://pub.dev/documentation/widget_test_harness/latest/widget_test_harness/WidgetTestHarness-class.html
+[`unitTestHarness`]: https://pub.dev/documentation/widget_test_harness/latest/widget_test_harness/UnitTestHarness-class.html
+
+Below is a basic example that has the included [`NetworkImageMixin`] which is used to mock the network image requests.
+
+[`NetworkImageMixin`]: https://pub.dev/documentation/widget_test_harness/latest/widget_test_harness/NetworkImageMixin-mixin.html
 
 ```dart
-void main() {
-  testWidgets('MyWidget has a title and message', (tester) async {
-    await tester.pumpWidget(const MyWidget(title: 'T', message: 'M'));
-    final titleFinder = find.text('T');
-    final messageFinder = find.text('M');
+import 'package:widget_test_harness/widget_test_harness.dart';
 
-    // Use the `findsOneWidget` matcher provided by flutter_test to verify
-    // that the Text widgets appear exactly once in the widget tree.
-    expect(titleFinder, findsOneWidget);
-    expect(messageFinder, findsOneWidget);
-  });
+class ExampleWidgetTestHarness extends WidgetTestHarness
+    with NetworkImageMixin, CounterHarnessMixin {
+  ExampleWidgetTestHarness(super.tester);
+
+  @override
+  List<int> bytesForUrlRequest(Uri url) {
+    final file = File('test/test_resources/sunflower.jpg');
+    final bytes = file.readAsBytesSync();
+    return bytes;
+  }
 }
 ```
 
-### Minimal change with given_when_then
-```dart
-void main() {
-  testWidgets('MyWidget has a title and message', harness((given, when, then) async {
-    await given.pumpMyWidget(title: 'T', message: 'M');
-    final titleFinder = find.text('T');
-    final messageFinder = find.text('M');
+The harness is passed into [`Given`], [`When`], [`Then`] and extensions off of each can define methods.  
 
-    then.findsOneWidget(titleFinder);
-    then.findsOneWidget(messageFinder);
-  }));
+```dart
+extension MyGivenForExample on Given<ExampleWidgetTestHarness> {
+  Future<void> setupWidget() async {...}
+}
+extension MyWhenForExample on When<ExampleWidgetTestHarness> {
+  Future<void> userPerformsSomeAction() {}
 }
 ```
 
--- see [example_test.dart](test/src/example/example_test.dart) for example of usage
+[`Given`]: https://pub.dev/documentation/widget_test_harness/latest/widget_test_harness/Given-class.html
+[`When`]: https://pub.dev/documentation/widget_test_harness/latest/widget_test_harness/When-class.html
+[`Then`]: https://pub.dev/documentation/widget_test_harness/latest/widget_test_harness/Then-class.html
+
+
+## Writing Mixins
+
+Using mixins different features can be reused throughout an application's test code.  
+
+```dart
+mixin CounterHarnessMixin on FlutterTestHarness {
+  CounterModel counter = CounterModel();
+  @override
+  Widget setupWidgetTree(Widget child) {
+    return super.setupWidgetTree(Provider.value(value: counter, child: child));
+  }
+}
+extension CounterHarnessGiven on Given<CounterHarnessMixin> {
+  void countIs(int value) {}
+}
+extension CounterHarnessThen on Then<CounterHarnessMixin> {
+  void countEquals(int value) => expect(value,harness.counter.value);
+}
+```
+
+
+## Writing Tests
+
+Writing a test invokes a function that will create the harness and setup state for that individual test.  You should never have to use setup(), or teardown() while using a test harness.   
+
+```dart
+final uiHarness = HarnessSetup.setupWidgetHarness(ExampleWidgetTestHarness.new);
+
+void main() {
+   testWidgets('test Counter', uiHarness((given, when, then) async {
+      given.countIs(1);
+      await given.setupWidget();
+      await when.userPerformsSomeAction();
+      await then.findsWidgetText();
+      then.countEquals(2);
+    }));
+}
+```
+
+-- see [example_test.dart](test/src/example/example_test.dart) for additional example of usage
+

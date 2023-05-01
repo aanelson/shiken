@@ -40,3 +40,4 @@
 # 0.5.0
 - Added documentation
 - Updated return types to make harness protected from being called directly
+- Added better checking in harness to verify that things are setup correctly

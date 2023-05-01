@@ -1,12 +1,8 @@
-import 'package:flutter_test/flutter_test.dart';
-import 'package:widget_test_harness/widget_test_harness.dart';
+part of '../test_harness.dart';
 
 ///
-/// This class is used to generate a function that has the callback with the appropriate given,when,then
-/// Used to generate unique types for Given,When,Then between Widget/ Unit test harness so mixins can provide targeted extensions
-///
-/// The [Given], [When], [Then] are then created based on which harness setup is called
-/// For Example, [HarnessSetup.setupHarness] takes a harness that does not have a [WidgetTester] and returns [Given], [When] and [Then]
+/// Used to generate a function that has the callback with the appropriate given,when,then
+/// Provides common setup functionality that mixins can use
 ///
 /// see [setupWidgetHarness] and [setupHarness] on actual usage
 ///
@@ -19,9 +15,9 @@ class HarnessSetup<H extends FlutterTestHarness> {
         final harness = createHarness();
         final setup = HarnessSetup<H>();
         await setup.setupHarnessAndExecute(harness, callback);
+        harness._validator.validateDartTest();
       };
     }
-
     return privateHarness;
   }
 
@@ -33,27 +29,26 @@ class HarnessSetup<H extends FlutterTestHarness> {
         final harness = createHarness(tester);
         final setup = HarnessSetup<H>();
         await setup.setupHarnessAndExecute(harness, callback);
+        harness._validator.validateWidgetTest();
       };
     }
 
     return privateHarness;
   }
 
+  /// 
   Future<void> setupHarnessAndExecute(
       H harness, ClassHarnessCallback<H> callback) async {
     await harness.setup();
 
-    var callbackRan = 0;
     Future<void> runGivenWhenThen() async {
       await callback(
           PublicGiven(harness), PublicWhen(harness), PublicThen(harness));
-      callbackRan++;
+      harness._validator.zoneCalled++;
     }
 
     await harness.setupZones(runGivenWhenThen);
 
-    assert(callbackRan == 1,
-        'given, when, then callback was expected to run once, it ran: $callbackRan times');
     harness.dispose();
   }
 }
