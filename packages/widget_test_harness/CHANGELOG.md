@@ -36,3 +36,7 @@
 # 0.4.4
 - Added parent class to given,when,then
 - widgetTester now is added via new mechanism
+
+# 0.5.0
+- Added documentation
+- Updated return types to make harness protected from being called directly

@@ -1,6 +1,5 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:widget_test_harness/src/ui_harness_helpers/callback_base_extensions.dart';
 
 import '../given_when_then.dart';
 import '../test_harness.dart';

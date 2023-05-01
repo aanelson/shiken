@@ -45,15 +45,15 @@ class HarnessSetup<H extends FlutterTestHarness> {
 
     var callbackRan = 0;
     Future<void> runGivenWhenThen() async {
-      final when = When(harness);
-      await callback(Given(harness), when, Then(harness));
+      await callback(
+          PublicGiven(harness), PublicWhen(harness), PublicThen(harness));
       callbackRan++;
     }
 
     await harness.setupZones(runGivenWhenThen);
 
     assert(callbackRan == 1,
-        'given, when, then callback was not executed $callbackRan times');
+        'given, when, then callback was expected to run once, it ran: $callbackRan times');
     harness.dispose();
   }
 }
@@ -62,6 +62,6 @@ class HarnessSetup<H extends FlutterTestHarness> {
 /// From there you can use the [Given], [When], [Then] to compose the test case
 
 typedef ClassHarnessCallback<T extends FlutterTestHarness> = Future<void>
-    Function(Given<T>, When<T>, Then<T>);
+    Function(PublicGiven<T>, PublicWhen<T>, PublicThen<T>);
 
 typedef WidgetTesterReturn = Future<void> Function(WidgetTester tester);

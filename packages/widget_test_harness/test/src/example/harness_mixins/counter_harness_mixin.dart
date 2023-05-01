@@ -8,8 +8,8 @@ import '../example_model.dart';
 mixin CounterHarnessMixin on FlutterTestHarness {
   CounterModel counter = CounterModel();
   @override
-  Widget insertWidget(Widget child) {
-    return super.insertWidget(Provider.value(value: counter, child: child));
+  Widget setupWidgetTree(Widget child) {
+    return super.setupWidgetTree(Provider.value(value: counter, child: child));
   }
 }
 

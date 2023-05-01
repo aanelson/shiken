@@ -5,8 +5,8 @@ import 'package:widget_test_harness/widget_test_harness.dart';
 mixin LoginHarnessMixin on FlutterTestHarness {
   final ValueNotifier<bool> loggedIn = ValueNotifier(false);
   @override
-  Widget insertWidget(Widget child) {
-    return super.insertWidget(Provider.value(value: loggedIn, child: child));
+  Widget setupWidgetTree(Widget child) {
+    return super.setupWidgetTree(Provider.value(value: loggedIn, child: child));
   }
 }
 

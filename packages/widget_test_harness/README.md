@@ -11,7 +11,7 @@ Add `test_harness` to your `pubspec.yaml`:
 
 ```yaml
 dev_dependencies:
-  widget_test_harness: 0.3.0
+  widget_test_harness: 0.5.0
 ```
 
 Install it:
@@ -21,6 +21,10 @@ flutter packages get
 ```
 
 ## Usage 
+
+* [Writing tests](#writing-tests)
+* [Writing harnesses](#writing-harnesses)
+* [Writing Mixins](#writing-mixins)
 
 
 ### Without given_when_then

@@ -2,7 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:widget_test_harness/widget_test_harness.dart';
 
 /// Add to harness to support semantic testing
-/// Will handle proper setup teardown for each test.
+/// Handles the setup/teardown
 ///
 
 mixin SemanticTesterMixin on WidgetTestHarness {

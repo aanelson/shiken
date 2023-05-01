@@ -1,7 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'callback_base_extensions.dart';
 import '../given_when_then.dart';
 import '../test_harness.dart';
 
