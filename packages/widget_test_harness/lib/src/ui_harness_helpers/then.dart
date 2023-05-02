@@ -11,6 +11,12 @@ extension CommonThenWidgetTestHelpers on Then<WidgetTestHarness> {
   void findsNothing(flutter_test.Finder finder) =>
       flutter_test.expect(finder, flutter_test.findsNothing);
 
+  void findsNWidgets(flutter_test.Finder finder, int n) =>
+      flutter_test.expect(finder, flutter_test.findsNWidgets(n));
+
+  void findsAtLeastNWidgets(flutter_test.Finder finder, int n) =>
+      flutter_test.expect(finder, flutter_test.findsAtLeastNWidgets(n));
+
   void findsWidgetWithText(flutter_test.Finder finder, dynamic matcher) {
     final widget = finder.evaluate().first.widget;
     if (widget is Text) {

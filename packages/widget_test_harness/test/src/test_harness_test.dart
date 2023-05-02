@@ -41,7 +41,6 @@ mixin SetupValue1 on FlutterTestHarness {
   int timesSetupRan = 0;
 }
 mixin SetupValue2 on FlutterTestHarness {
-
   @override
   Future<void> setup() {
     ranSetup = true;

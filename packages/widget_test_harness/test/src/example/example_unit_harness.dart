@@ -3,8 +3,7 @@ import 'package:widget_test_harness/widget_test_harness.dart';
 
 import 'counter_harness_mixin.dart';
 
-final unitTestHarness =
-    HarnessSetup.setupHarness(ExampleUnitTestHarness.new);
+final unitTestHarness = HarnessSetup.setupHarness(ExampleUnitTestHarness.new);
 
 class ExampleUnitTestHarness extends UnitTestHarness with CounterHarnessMixin {}
 

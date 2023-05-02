@@ -18,6 +18,7 @@ class HarnessSetup<H extends FlutterTestHarness> {
         harness._validator.validateDartTest();
       };
     }
+
     return privateHarness;
   }
 
@@ -36,7 +37,7 @@ class HarnessSetup<H extends FlutterTestHarness> {
     return privateHarness;
   }
 
-  /// 
+  ///
   Future<void> setupHarnessAndExecute(
       H harness, ClassHarnessCallback<H> callback) async {
     await harness.setup();

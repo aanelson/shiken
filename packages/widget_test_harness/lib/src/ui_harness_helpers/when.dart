@@ -5,7 +5,6 @@ import '../given_when_then.dart';
 import '../test_harness.dart';
 
 extension CommonWhenWidgetTestHelpers on When<WidgetTestHarness> {
-
   /// passthrough for [WidgetTester.pump]
   Future<void> pump(
           [Duration? duration,

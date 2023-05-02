@@ -25,7 +25,6 @@ class ExampleWidgetTestHarness extends WidgetTestHarness
 
 extension ExampleGiven on Given<ExampleWidgetTestHarness> {
   Future<void> setupWidget() async {
-    
     await tester.pumpWidget(harness.setupWidgetTree(const WidgetUnderTest()));
   }
 }

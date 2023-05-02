@@ -51,7 +51,7 @@ abstract class FlutterTestHarness {
 
   /// used to wrap callback with [runZoned] or other test helpers that take a function.
   /// see [NetworkImageMixin] for example of setup.
-  /// 
+  ///
   /// ```dart
   /// Future<void> setupZones(Future<void> Function() child) {
   ///  return runZoned(
@@ -60,8 +60,8 @@ abstract class FlutterTestHarness {
   ///  );
   ///}
   /// ```
-  /// 
-  /// 
+  ///
+  ///
   @mustCallSuper
   Future<void> setupZones(Future<void> Function() child) {
     return child();

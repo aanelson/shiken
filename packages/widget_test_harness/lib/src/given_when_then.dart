@@ -49,4 +49,3 @@ class PublicThen<T extends FlutterTestHarness> extends Then<T> {
   @override
   T get harness;
 }
-
