@@ -3,7 +3,7 @@ A package to help with the creation of test harnesses to allow better readabilit
 
 Uses Given, When, then, but unlike a lot of other test frameworks there is a single callback.
 
-based on the ebay given_when_then but improves the ability to use add mixins to have tests automatically configure themselves.
+based on the ebay given_when_then, but exposes setup in creation of hte harness which allows mixin or inheritance to reuse test setup/teardown code.
 
 ## Installation 💻
 

@@ -41,3 +41,7 @@
 - Added documentation
 - Updated return types to make harness protected from being called directly
 - Added better checking in harness to verify that things are setup correctly
+
+# 0.5.1
+- Added documentation
+- Added then methods
