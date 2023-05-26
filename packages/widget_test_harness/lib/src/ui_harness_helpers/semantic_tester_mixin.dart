@@ -5,7 +5,7 @@ import 'package:widget_test_harness/widget_test_harness.dart';
 /// Handles the setup/teardown
 ///
 
-mixin SemanticTesterMixin on WidgetTestHarness {
+base mixin SemanticTesterMixin on WidgetTestHarness {
   @override
   Future<void> setup() {
     _handle = tester.ensureSemantics();

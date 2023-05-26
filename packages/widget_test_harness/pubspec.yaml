@@ -1,10 +1,10 @@
 name: widget_test_harness
 description: Create a reusable harness for testing.  Use Mixins to combine functionality to keep testing dependencies dry
 repository: https://github.com/aanelson/shiken
-version: 0.5.1
+version: 0.6.0
 
 environment:
-  sdk: ">=2.18.0 <3.0.0"
+  sdk: ">=3.0.1 <4.0.0"
 
 dependencies:
   flutter:

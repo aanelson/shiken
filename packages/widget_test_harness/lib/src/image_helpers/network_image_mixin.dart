@@ -5,7 +5,7 @@ import '../test_harness.dart';
 
 /// mixin to provide support for loading images instead of throwing an error
 /// provides support to load arbitrary images based on the uri
-mixin NetworkImageMixin on FlutterTestHarness {
+base mixin NetworkImageMixin on FlutterTestHarness {
   @override
   Future<void> setupZones(Future<void> Function() child) {
     return HttpOverrides.runZoned(

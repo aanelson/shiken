@@ -21,9 +21,9 @@ void main() {
   });
 }
 
-class Harness extends UnitTestHarness with SetupValue1, SetupValue2 {}
+final class Harness extends UnitTestHarness with SetupValue1, SetupValue2 {}
 
-mixin SetupValue1 on FlutterTestHarness {
+base mixin SetupValue1 on FlutterTestHarness {
   @override
   Future<void> setupZones(Future<void> Function() child) {
     return runZoned(
@@ -40,7 +40,7 @@ mixin SetupValue1 on FlutterTestHarness {
 
   int timesSetupRan = 0;
 }
-mixin SetupValue2 on FlutterTestHarness {
+base mixin SetupValue2 on FlutterTestHarness {
   @override
   Future<void> setup() {
     ranSetup = true;
