@@ -5,7 +5,7 @@ import 'package:widget_test_harness/widget_test_harness.dart';
 
 import '../example_model.dart';
 
-mixin CounterHarnessMixin on FlutterTestHarness {
+base mixin CounterHarnessMixin on FlutterTestHarness {
   CounterModel counter = CounterModel();
   @override
   Widget setupWidgetTree(Widget child) {

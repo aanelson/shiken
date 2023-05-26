@@ -11,7 +11,7 @@ import 'example_model.dart';
 
 final uiHarness = HarnessSetup.setupWidgetHarness(ExampleWidgetTestHarness.new);
 
-class ExampleWidgetTestHarness extends WidgetTestHarness
+final class ExampleWidgetTestHarness extends WidgetTestHarness
     with CounterHarnessMixin, NetworkImageMixin {
   ExampleWidgetTestHarness(super.tester);
 

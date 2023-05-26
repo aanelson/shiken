@@ -11,7 +11,7 @@ Add `test_harness` to your `pubspec.yaml`:
 
 ```yaml
 dev_dependencies:
-  widget_test_harness: 0.5.0
+  widget_test_harness: 0.6.0
 ```
 
 Install it:
@@ -41,7 +41,7 @@ Below is a basic example that has the included [`NetworkImageMixin`] which is us
 ```dart
 import 'package:widget_test_harness/widget_test_harness.dart';
 
-class ExampleWidgetTestHarness extends WidgetTestHarness
+final class ExampleWidgetTestHarness extends WidgetTestHarness
     with NetworkImageMixin, CounterHarnessMixin {
   ExampleWidgetTestHarness(super.tester);
 
@@ -75,7 +75,7 @@ extension MyWhenForExample on When<ExampleWidgetTestHarness> {
 Using mixins different features can be reused throughout an application's test code.  
 
 ```dart
-mixin CounterHarnessMixin on FlutterTestHarness {
+base mixin CounterHarnessMixin on FlutterTestHarness {
   CounterModel counter = CounterModel();
   @override
   Widget setupWidgetTree(Widget child) {

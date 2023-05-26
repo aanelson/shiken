@@ -14,7 +14,7 @@ part 'harness_setup/harness_setup.dart';
 ///
 /// }
 /// ```
-abstract class FlutterTestHarness {
+abstract base class FlutterTestHarness {
   final _validator = _SetupValidator();
 
   /// Used so mixins can setup testing infrastructure see [SemanticTesterMixin] for example
@@ -79,7 +79,7 @@ abstract class FlutterTestHarness {
 ///
 /// }
 /// ```
-abstract class UnitTestHarness extends FlutterTestHarness {
+abstract base class UnitTestHarness extends FlutterTestHarness {
   UnitTestHarness();
 }
 
@@ -99,7 +99,7 @@ abstract class UnitTestHarness extends FlutterTestHarness {
 /// ```
 ///
 
-abstract class WidgetTestHarness extends FlutterTestHarness {
+abstract base class WidgetTestHarness extends FlutterTestHarness {
   WidgetTestHarness(this.tester);
 
   /// [WidgetTester] that is passed into harness when the test is created.

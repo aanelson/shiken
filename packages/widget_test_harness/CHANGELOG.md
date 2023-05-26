@@ -45,3 +45,6 @@
 # 0.5.1
 - Added documentation
 - Added then methods
+
+# 0.6.0
+- Updated to using dart 3 features
