@@ -52,3 +52,6 @@
 # 0.7.0
 - Renamed dispose to teardown
 - Made teardown a Future<void>
+
+# 0.7.1
+- Fixed not cleaning up when exception is thrown in test

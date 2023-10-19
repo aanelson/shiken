@@ -13,6 +13,17 @@ void main() {
       then.countEquals(2);
     }));
   });
+  group('exception test group', () {
+    // was not correctly cleaning up after excpetions
+    test('exception setup', unitTestHarness((given, when, then) async {
+      given.countSingletonIs(1);
+      when.throwsSomeException();
+    }), skip: true);
+    test('exception exception does not transfer state', unitTestHarness((given, when, then) async {
+      then.countSingletonIs(0);
+    }));
+  });
+
   group('example widget tests', () {
     testWidgets('test Counter', uiHarness((given, when, then) async {
       given.countIs(1);

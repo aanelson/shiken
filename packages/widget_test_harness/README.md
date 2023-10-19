@@ -11,7 +11,7 @@ Add `test_harness` to your `pubspec.yaml`:
 
 ```yaml
 dev_dependencies:
-  widget_test_harness: 0.6.0
+  widget_test_harness: 0.7.1
 ```
 
 Install it:
