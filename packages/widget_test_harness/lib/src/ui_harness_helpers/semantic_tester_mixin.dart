@@ -14,9 +14,9 @@ base mixin SemanticTesterMixin on WidgetTestHarness {
 
   late final SemanticsHandle _handle;
   @override
-  void dispose() {
+  Future<void> teardown() {
     _handle.dispose();
-    super.dispose();
+    return super.teardown();
   }
 }
 

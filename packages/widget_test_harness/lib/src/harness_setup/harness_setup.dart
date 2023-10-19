@@ -8,8 +8,8 @@ part of '../test_harness.dart';
 ///
 
 class HarnessSetup<H extends FlutterTestHarness> {
-  static Future<void> Function() Function(ClassHarnessCallback<H> callback)
-      setupHarness<H extends UnitTestHarness>(H Function() createHarness) {
+  static Future<void> Function() Function(ClassHarnessCallback<H> callback) setupHarness<H extends UnitTestHarness>(
+      H Function() createHarness) {
     Future<void> Function() privateHarness(ClassHarnessCallback<H> callback) {
       return () async {
         final harness = createHarness();
@@ -22,9 +22,8 @@ class HarnessSetup<H extends FlutterTestHarness> {
     return privateHarness;
   }
 
-  static WidgetTesterReturn Function(ClassHarnessCallback<H> callback)
-      setupWidgetHarness<H extends WidgetTestHarness>(
-          H Function(WidgetTester tester) createHarness) {
+  static WidgetTesterReturn Function(ClassHarnessCallback<H> callback) setupWidgetHarness<H extends WidgetTestHarness>(
+      H Function(WidgetTester tester) createHarness) {
     WidgetTesterReturn privateHarness(ClassHarnessCallback<H> callback) {
       return (tester) async {
         final harness = createHarness(tester);
@@ -38,26 +37,24 @@ class HarnessSetup<H extends FlutterTestHarness> {
   }
 
   ///
-  Future<void> setupHarnessAndExecute(
-      H harness, ClassHarnessCallback<H> callback) async {
+  Future<void> setupHarnessAndExecute(H harness, ClassHarnessCallback<H> callback) async {
     await harness.setup();
 
     Future<void> runGivenWhenThen() async {
-      await callback(
-          PublicGiven(harness), PublicWhen(harness), PublicThen(harness));
+      await callback(PublicGiven(harness), PublicWhen(harness), PublicThen(harness));
       harness._validator.zoneCalled++;
     }
 
     await harness.setupZones(runGivenWhenThen);
 
-    harness.dispose();
+    await harness.teardown();
   }
 }
 
 /// This function is used to generate a function to pass into a unit test
 /// From there you can use the [Given], [When], [Then] to compose the test case
 
-typedef ClassHarnessCallback<T extends FlutterTestHarness> = Future<void>
-    Function(PublicGiven<T>, PublicWhen<T>, PublicThen<T>);
+typedef ClassHarnessCallback<T extends FlutterTestHarness> = Future<void> Function(
+    PublicGiven<T>, PublicWhen<T>, PublicThen<T>);
 
 typedef WidgetTesterReturn = Future<void> Function(WidgetTester tester);

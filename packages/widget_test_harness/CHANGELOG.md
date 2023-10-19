@@ -48,3 +48,7 @@
 
 # 0.6.0
 - Updated to using dart 3 features
+
+# 0.7.0
+- Renamed dispose to teardown
+- Made teardown a Future<void>

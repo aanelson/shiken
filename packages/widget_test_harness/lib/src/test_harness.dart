@@ -25,8 +25,8 @@ abstract base class FlutterTestHarness {
 
   /// Used so mixins can teardown testing infrastructure see [SemanticTesterMixin] for example
   @mustCallSuper
-  void dispose() {
-    _validator.disposeCalled++;
+  Future<void> teardown() async {
+    _validator.teardownCalled++;
   }
 
   /// Allows mixins to add appropriate widgets if needed.
@@ -108,26 +108,19 @@ abstract base class WidgetTestHarness extends FlutterTestHarness {
 
 class _SetupValidator {
   int setupCalled = 0;
-  int disposeCalled = 0;
+  int teardownCalled = 0;
   int widgetTreeCalled = 0;
   int zoneCalled = 0;
 
   void validateDartTest() {
-    expect(setupCalled, 1,
-        reason:
-            'setup was called $setupCalled times expected to be called once');
-    expect(disposeCalled, 1,
-        reason:
-            'dispose was called $disposeCalled times expected to be called once');
-    expect(zoneCalled, 1,
-        reason: 'zone was called $zoneCalled times expected to be called once');
+    expect(setupCalled, 1, reason: 'setup was called $setupCalled times expected to be called once');
+    expect(teardownCalled, 1, reason: 'teardown was called $teardownCalled times expected to be called once');
+    expect(zoneCalled, 1, reason: 'zone was called $zoneCalled times expected to be called once');
   }
 
   void validateWidgetTest() {
     validateDartTest();
-    expect(widgetTreeCalled, 1,
-        reason:
-            '''widget tree called $widgetTreeCalled times expected to be called once,
+    expect(widgetTreeCalled, 1, reason: '''widget tree called $widgetTreeCalled times expected to be called once,
             This is the only setup function that the widget needs to call manually.
             In the given the call should look something like below. That way mixins that are added currently and in the future
             can correctly setup the widget tree in an expected state.  
