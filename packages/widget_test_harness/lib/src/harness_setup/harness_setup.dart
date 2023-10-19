@@ -41,9 +41,12 @@ class HarnessSetup<H extends FlutterTestHarness> {
     await harness.setup();
 
     Future<void> runGivenWhenThen() async {
-      await callback(PublicGiven(harness), PublicWhen(harness), PublicThen(harness)).whenComplete(harness.teardown);
-
-      harness._validator.zoneCalled++;
+      try {
+        await callback(PublicGiven(harness), PublicWhen(harness), PublicThen(harness));
+      } finally {
+        harness._validator.zoneCalled++;
+        await harness.teardown();
+      }
     }
 
     await harness.setupZones(runGivenWhenThen);

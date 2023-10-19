@@ -55,3 +55,6 @@
 
 # 0.7.1
 - Fixed not cleaning up when exception is thrown in test
+
+# 0.7.2
+- Updated how exception is handled 
