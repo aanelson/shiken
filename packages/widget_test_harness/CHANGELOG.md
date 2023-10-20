@@ -58,3 +58,6 @@
 
 # 0.7.2
 - Updated how exception is handled 
+
+# 0.7.3
+- Updated to allow passing reason through provided then methods
