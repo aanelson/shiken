@@ -19,7 +19,8 @@ void main() {
       given.countSingletonIs(1);
       when.throwsSomeException();
     }), skip: true);
-    test('exception exception does not transfer state', unitTestHarness((given, when, then) async {
+    test('exception exception does not transfer state',
+        unitTestHarness((given, when, then) async {
       then.countSingletonIs(0);
     }));
   });

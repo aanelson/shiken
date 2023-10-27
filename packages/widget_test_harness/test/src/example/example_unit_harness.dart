@@ -5,7 +5,8 @@ import 'counter_harness_mixin.dart';
 
 final unitTestHarness = HarnessSetup.setupHarness(ExampleUnitTestHarness.new);
 
-final class ExampleUnitTestHarness extends UnitTestHarness with CounterHarnessMixin {}
+final class ExampleUnitTestHarness extends UnitTestHarness
+    with CounterHarnessMixin {}
 
 extension ExampleWhen on When<ExampleUnitTestHarness> {
   Future<void> countIncreaseByOne() async {
