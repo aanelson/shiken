@@ -52,7 +52,6 @@ abstract base class FlutterTestHarness {
   /// ```
   ///
   @mustCallSuper
-  @protected
   Widget setupWidgetTree(Widget child) {
     _validator.widgetTreeCalled++;
     return child;

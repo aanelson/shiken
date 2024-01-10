@@ -4,7 +4,7 @@
 
 # 0.1.0+2
 
-- updated formating and fixes for pub scoring
+- updated formatting and fixes for pub scoring
 
 # 0.2.0
 
@@ -76,3 +76,7 @@
 
 - Added abstraction to allow mixins to support unit tests and widget tests
 - Made methods in harnesses protected.
+
+# 0.7.5
+
+- Reverted protected change.
