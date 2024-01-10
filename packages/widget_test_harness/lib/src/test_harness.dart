@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'common_helpers.dart';
 import 'given_when_then.dart';
 import 'helper_mixins.dart';
 
@@ -17,14 +18,21 @@ part 'harness_setup/harness_setup.dart';
 abstract base class FlutterTestHarness {
   final _validator = _SetupValidator();
 
+  /// abstraction so mixins can be written to support dart tests and widget tests
+  /// uses [pump], [pumpAndSettle], and [idle] in widget tests.  Uses [Future.value] and [Future.microtask]
+  /// for unit tests
+  CommonTester get commonTestHelper => UnitCommonTester();
+
   /// Used so mixins can setup testing infrastructure see [SemanticTesterMixin] for example
   @mustCallSuper
+  @protected
   Future<void> setup() async {
     _validator.setupCalled++;
   }
 
   /// Used so mixins can teardown testing infrastructure see [SemanticTesterMixin] for example
   @mustCallSuper
+  @protected
   Future<void> teardown() async {
     _validator.teardownCalled++;
   }
@@ -44,6 +52,7 @@ abstract base class FlutterTestHarness {
   /// ```
   ///
   @mustCallSuper
+  @protected
   Widget setupWidgetTree(Widget child) {
     _validator.widgetTreeCalled++;
     return child;
@@ -63,6 +72,7 @@ abstract base class FlutterTestHarness {
   ///
   ///
   @mustCallSuper
+  @protected
   Future<void> setupZones(Future<void> Function() child) {
     return child();
   }
@@ -101,6 +111,9 @@ abstract base class UnitTestHarness extends FlutterTestHarness {
 
 abstract base class WidgetTestHarness extends FlutterTestHarness {
   WidgetTestHarness(this.tester);
+
+  @override
+  CommonTester get commonTestHelper => WidgetCommonTester(tester);
 
   /// [WidgetTester] that is passed into harness when the test is created.
   final WidgetTester tester;

@@ -27,37 +27,52 @@
 - added fling to when
 
 # 0.4.2
+
 - add mixins
 - updated reference to when in given
 
 # 0.4.3
+
 - reverted change
 
 # 0.4.4
+
 - Added parent class to given,when,then
 - widgetTester now is added via new mechanism
 
 # 0.5.0
+
 - Added documentation
 - Updated return types to make harness protected from being called directly
 - Added better checking in harness to verify that things are setup correctly
 
 # 0.5.1
+
 - Added documentation
 - Added then methods
 
 # 0.6.0
+
 - Updated to using dart 3 features
 
 # 0.7.0
+
 - Renamed dispose to teardown
 - Made teardown a Future<void>
 
 # 0.7.1
+
 - Fixed not cleaning up when exception is thrown in test
 
 # 0.7.2
-- Updated how exception is handled 
+
+- Updated how exception is handled
 
 # 0.7.3
+
 - Updated to allow passing reason through provided then methods
+
+# 0.7.4
+
+- Added abstraction to allow mixins to support unit tests and widget tests
+- Made methods in harnesses protected.
