@@ -7,9 +7,15 @@ import '../test_harness.dart';
 extension CommonGivenWidgetTestHelpers on Given<WidgetTestHarness> {
   /// passthrough for [WidgetTester.pumpWidget]
   Future<void> pumpWidget(
-    Widget widget, [
+    Widget widget, {
     Duration? duration,
     EnginePhase phase = EnginePhase.sendSemanticsUpdate,
-  ]) =>
-      tester.pumpWidget(widget, duration, phase);
+    bool wrapWithView = true,
+  }) =>
+      tester.pumpWidget(
+        widget,
+        duration: duration,
+        phase: phase,
+        wrapWithView: wrapWithView,
+      );
 }

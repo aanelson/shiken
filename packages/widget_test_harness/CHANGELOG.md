@@ -80,3 +80,7 @@
 # 0.7.5
 
 - Reverted protected change.
+
+# 0.8.0
+
+- Update to support flutter 3.29
